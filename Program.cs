@@ -44,13 +44,16 @@ class Solver_Dna{
     }
     async private Task<string> get_token()
     {
-        var dict = new Dictionary<string, string>();
-        dict.Add("username", username);
-        dict.Add("password", password);
-        var http = new FormUrlEncodedContent(dict);
+        string request_body = JsonSerializer.Serialize(new { user = username, password = password });
+        var httpContent = new StringContent(request_body,System.Text.Encoding.UTF8, new MediaTypeHeaderValue("application/json"));
+        var token_request = new HttpRequestMessage()
+        {
+            Content = httpContent
+        };
+        Console.Write(await httpContent.ReadAsStringAsync());
+        var obj = new { user = "username", password = "password" };
 
-
-        var http_response = await client.PostAsync($"{base_url}/api/users/login", http);
+        var http_response = await client.PostAsJsonAsync($"{base_url}/api/users/login", obj);
         return await http_response.Content.ReadAsStringAsync();
     }
 }
