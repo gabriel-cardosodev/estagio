@@ -2,8 +2,7 @@
 using Cliethttp;
 class main{
     public static void Main(){
-        var client = new Client();
-        var solver = new Solver_Dna(client);
+        var solver = new Solver_Dna();
         solver.main_loop();
     }
 
