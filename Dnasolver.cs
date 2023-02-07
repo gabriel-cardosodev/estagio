@@ -3,10 +3,7 @@ namespace DnaSolver
 {
     class Solver_Dna
     {
-        Client client;
-        public Solver_Dna(Client client){
-            this.client = client;
-        }
+        static Client client = new Client();
         private String encodeDna(string dna)
         {
             if (dna.Length % 4 != 0)
